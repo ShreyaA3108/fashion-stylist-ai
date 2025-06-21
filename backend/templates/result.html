@@ -1,0 +1,22 @@
+<!-- backend/templates/results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Outfit Suggestions</title>
+</head>
+<body>
+    <h1>Your Personalized Outfit Suggestions 👕</h1>
+    <p>{{ blurb }}</p>
+
+    <div>
+        {% for outfit in outfits %}
+            <div style="margin: 10px; display:inline-block;">
+                <img src="{{ url_for('static', filename=outfit.img.split('static/')[-1]) }}" width="200" /><br>
+                <strong>{{ outfit.title }}</strong>
+            </div>
+        {% endfor %}
+    </div>
+
+    <br><a href="/">← Try another look</a>
+</body>
+</html>

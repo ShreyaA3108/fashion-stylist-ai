@@ -1,0 +1,31 @@
+<!-- backend/templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Stylist - Get Outfit</title>
+</head>
+<body>
+    <h1>Welcome to AI Fashion Stylist 👗</h1>
+    <form action="/recommend" method="POST">
+        <label>Gender:</label>
+        <input type="text" name="gender"><br>
+
+        <label>Body Type:</label>
+        <input type="text" name="bodytype"><br>
+
+        <label>Occasion:</label>
+        <input type="text" name="occasion"><br>
+
+        <label>Style:</label>
+        <input type="text" name="style"><br>
+
+        <label>Color Preference:</label>
+        <input type="text" name="colour"><br>
+
+        <label>Budget:</label>
+        <input type="number" name="budget"><br>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+</body>
+</html>
