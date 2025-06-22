@@ -11,7 +11,7 @@
     <div>
         {% for outfit in outfits %}
             <div style="margin: 10px; display:inline-block;">
-                <img src="{{ url_for('static', filename=outfit.img.split('static/')[-1]) }}" width="200" /><br>
+                <img src="{{ url_for('static', filename=outfit.img) }}" width="200" /><br>
                 <strong>{{ outfit.title }}</strong>
             </div>
         {% endfor %}

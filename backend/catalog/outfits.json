@@ -1,442 +1,242 @@
 [
   {
     "name": "Quechua Aluminium Print Water Bottle",
-    "image": "static\\outfits\\1808.jpg",
-    "tags": [
-      "unisex",
-      "purple",
-      "sports",
-      "water bottle"
-    ],
+    "image": "static/outfits/1808.jpg",
+    "tags": ["unisex", "purple", "sports", "water bottle"],
     "budget": 2657
   },
   {
     "name": "Nike Men Blue Windrunner Jacket",
-    "image": "static\\outfits\\1662.jpg",
-    "tags": [
-      "men",
-      "navy blue",
-      "sports",
-      "jackets"
-    ],
+    "image": "static/outfits/1662.jpg",
+    "tags": ["men", "navy blue", "sports", "jackets"],
     "budget": 3473
   },
   {
     "name": "Quechua Men Arpenaz Brown Sandal",
-    "image": "static\\outfits\\1806.jpg",
-    "tags": [
-      "men",
-      "brown",
-      "casual",
-      "sandals"
-    ],
+    "image": "static/outfits/1806.jpg",
+    "tags": ["men", "brown", "casual", "sandals"],
     "budget": 2813
   },
   {
     "name": "Quechua Women 10L Pink Bag",
-    "image": "static\\outfits\\1801.jpg",
-    "tags": [
-      "women",
-      "pink",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1801.jpg",
+    "tags": ["women", "pink", "sports", "backpacks"],
     "budget": 2510
   },
   {
     "name": "Quechua Unisex Black Solid Backpack",
-    "image": "static\\outfits\\1800.jpg",
-    "tags": [
-      "unisex",
-      "black",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1800.jpg",
+    "tags": ["unisex", "black", "sports", "backpacks"],
     "budget": 2482
   },
   {
     "name": "Quechua Men G1 Techfresh Red T-Shirt",
-    "image": "static\\outfits\\1807.jpg",
-    "tags": [
-      "men",
-      "red",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1807.jpg",
+    "tags": ["men", "red", "casual", "tshirts"],
     "budget": 2652
   },
   {
     "name": "Puma Deck Black Backpack",
-    "image": "static\\outfits\\1697.jpg",
-    "tags": [
-      "unisex",
-      "black",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1697.jpg",
+    "tags": ["unisex", "black", "sports", "backpacks"],
     "budget": 2278
   },
   {
     "name": "Decathlon Profilter Women Blue T-Shirt",
-    "image": "static\\outfits\\1809.jpg",
-    "tags": [
-      "women",
-      "blue",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1809.jpg",
+    "tags": ["women", "blue", "sports", "tshirts"],
     "budget": 2615
   },
   {
     "name": "Newfeel Unisex White Shoes",
-    "image": "static\\outfits\\1729.jpg",
-    "tags": [
-      "unisex",
-      "white",
-      "casual",
-      "casual shoes"
-    ],
+    "image": "static/outfits/1729.jpg",
+    "tags": ["unisex", "white", "casual", "casual shoes"],
     "budget": 3319
   },
   {
     "name": "Newfeel Unisex Black Lightweight Shoes",
-    "image": "static\\outfits\\1727.jpg",
-    "tags": [
-      "unisex",
-      "black",
-      "casual",
-      "casual shoes"
-    ],
+    "image": "static/outfits/1727.jpg",
+    "tags": ["unisex", "black", "casual", "casual shoes"],
     "budget": 3642
   },
   {
     "name": "Lotto Men Court Logo White-Silver Shoe",
-    "image": "static\\outfits\\1787.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1787.jpg",
+    "tags": ["men", "white", "sports", "sports shoes"],
     "budget": 2165
   },
   {
     "name": "Lotto Men Oslo Grey-Orange Shoe",
-    "image": "static\\outfits\\1789.jpg",
-    "tags": [
-      "men",
-      "orange",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1789.jpg",
+    "tags": ["men", "orange", "sports", "sports shoes"],
     "budget": 1613
   },
   {
     "name": "Newfeel Unisex Green Sports Shoes",
-    "image": "static\\outfits\\1728.jpg",
-    "tags": [
-      "unisex",
-      "green",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1728.jpg",
+    "tags": ["unisex", "green", "sports", "sports shoes"],
     "budget": 2772
   },
   {
     "name": "Lotto Men'S Court-White-Blue Shoe",
-    "image": "static\\outfits\\1788.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1788.jpg",
+    "tags": ["men", "white", "sports", "sports shoes"],
     "budget": 2557
   },
   {
     "name": "Lotto Men'S Court Logo White Shoe",
-    "image": "static\\outfits\\1786.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1786.jpg",
+    "tags": ["men", "white", "sports", "sports shoes"],
     "budget": 1827
   },
   {
     "name": "Lotto Men Polo Slate Black Rugby T-Shirt",
-    "image": "static\\outfits\\1757.jpg",
-    "tags": [
-      "men",
-      "black",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1757.jpg",
+    "tags": ["men", "black", "sports", "tshirts"],
     "budget": 2057
   },
   {
     "name": "Newfeel 22L Black Bag",
-    "image": "static\\outfits\\1795.jpg",
-    "tags": [
-      "men",
-      "black",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1795.jpg",
+    "tags": ["men", "black", "sports", "backpacks"],
     "budget": 2643
   },
   {
     "name": "Lotto Men Epic Grey T-Shirt",
-    "image": "static\\outfits\\1759.jpg",
-    "tags": [
-      "men",
-      "grey",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1759.jpg",
+    "tags": ["men", "grey", "sports", "tshirts"],
     "budget": 3290
   },
   {
     "name": "Newfeel Marine Blue Bag",
-    "image": "static\\outfits\\1792.jpg",
-    "tags": [
-      "unisex",
-      "blue",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1792.jpg",
+    "tags": ["unisex", "blue", "sports", "backpacks"],
     "budget": 3296
   },
   {
     "name": "Inesis Men Blue Polo T-Shirt",
-    "image": "static\\outfits\\1766.jpg",
-    "tags": [
-      "men",
-      "blue",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1766.jpg",
+    "tags": ["men", "blue", "casual", "tshirts"],
     "budget": 3218
   },
   {
     "name": "Lotto Men White Collared Jacket",
-    "image": "static\\outfits\\1758.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "jackets"
-    ],
+    "image": "static/outfits/1758.jpg",
+    "tags": ["men", "white", "sports", "jackets"],
     "budget": 2625
   },
   {
     "name": "Quechua 10L Green Bag",
-    "image": "static\\outfits\\1793.jpg",
-    "tags": [
-      "unisex",
-      "green",
-      "travel",
-      "backpacks"
-    ],
+    "image": "static/outfits/1793.jpg",
+    "tags": ["unisex", "green", "travel", "backpacks"],
     "budget": 2627
   },
   {
     "name": "Newfeel Brown 22L Bag",
-    "image": "static\\outfits\\1794.jpg",
-    "tags": [
-      "unisex",
-      "brown",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1794.jpg",
+    "tags": ["unisex", "brown", "sports", "backpacks"],
     "budget": 1860
   },
   {
     "name": "Lotto Men Marcello White T-Shirt",
-    "image": "static\\outfits\\1760.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1760.jpg",
+    "tags": ["men", "white", "sports", "tshirts"],
     "budget": 3964
   },
   {
     "name": "Lotto Men White Polo T-Shirt",
-    "image": "static\\outfits\\1756.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1756.jpg",
+    "tags": ["men", "white", "sports", "tshirts"],
     "budget": 2488
   },
   {
     "name": "Reebok Men Green Polo T-Shirt",
-    "image": "static\\outfits\\1670.jpg",
-    "tags": [
-      "men",
-      "grey",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1670.jpg",
+    "tags": ["men", "grey", "casual", "tshirts"],
     "budget": 2000
   },
   {
     "name": "Reebok Men Black Polo T-Shirt",
-    "image": "static\\outfits\\1671.jpg",
-    "tags": [
-      "men",
-      "black",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1671.jpg",
+    "tags": ["men", "black", "casual", "tshirts"],
     "budget": 2133
   },
   {
     "name": "Reebok Men Play Hard Cotton Green T-Shirt",
-    "image": "static\\outfits\\1678.jpg",
-    "tags": [
-      "men",
-      "green",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1678.jpg",
+    "tags": ["men", "green", "casual", "tshirts"],
     "budget": 2669
   },
   {
     "name": "Quechua Men'S Arpenaz Flex Yellow Shoe",
-    "image": "static\\outfits\\1802.jpg",
-    "tags": [
-      "men",
-      "brown",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1802.jpg",
+    "tags": ["men", "brown", "sports", "sports shoes"],
     "budget": 3314
   },
   {
     "name": "Reebok Men Playdry Full Sleeved T-Shirt Red",
-    "image": "static\\outfits\\1668.jpg",
-    "tags": [
-      "men",
-      "red",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1668.jpg",
+    "tags": ["men", "red", "casual", "tshirts"],
     "budget": 3618
   },
   {
     "name": "Quechua Men Forclaz 1Oo Beige Shoe",
-    "image": "static\\outfits\\1805.jpg",
-    "tags": [
-      "men",
-      "beige",
-      "casual",
-      "casual shoes"
-    ],
+    "image": "static/outfits/1805.jpg",
+    "tags": ["men", "beige", "casual", "casual shoes"],
     "budget": 3141
   },
   {
     "name": "Kalenji Men Essential Baggy Black Shorts",
-    "image": "static\\outfits\\1804.jpg",
-    "tags": [
-      "men",
-      "black",
-      "sports",
-      "shorts"
-    ],
+    "image": "static/outfits/1804.jpg",
+    "tags": ["men", "black", "sports", "shorts"],
     "budget": 1821
   },
   {
     "name": "Tribord Unisex Black T-Shirt",
-    "image": "static\\outfits\\1803.jpg",
-    "tags": [
-      "unisex",
-      "black",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1803.jpg",
+    "tags": ["unisex", "black", "sports", "tshirts"],
     "budget": 3413
   },
   {
     "name": "Lotto Men'S Melbourne White-Red Shoe",
-    "image": "static\\outfits\\1784.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1784.jpg",
+    "tags": ["men", "white", "sports", "sports shoes"],
     "budget": 1839
   },
   {
     "name": "Lotto Men Brighton White-Blue Shoe",
-    "image": "static\\outfits\\1785.jpg",
-    "tags": [
-      "men",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1785.jpg",
+    "tags": ["men", "white", "sports", "sports shoes"],
     "budget": 2051
   },
   {
     "name": "Kalenji Men'S Kapteren Black Shoe",
-    "image": "static\\outfits\\1782.jpg",
-    "tags": [
-      "men",
-      "black",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1782.jpg",
+    "tags": ["men", "black", "sports", "sports shoes"],
     "budget": 1966
   },
   {
     "name": "Reebok Women White Blue Frisker Shoes",
-    "image": "static\\outfits\\1731.jpg",
-    "tags": [
-      "women",
-      "white",
-      "sports",
-      "sports shoes"
-    ],
+    "image": "static/outfits/1731.jpg",
+    "tags": ["women", "white", "sports", "sports shoes"],
     "budget": 3573
   },
   {
     "name": "Lotto Men Marcello Black T-Shirt",
-    "image": "static\\outfits\\1754.jpg",
-    "tags": [
-      "men",
-      "black",
-      "sports",
-      "tshirts"
-    ],
+    "image": "static/outfits/1754.jpg",
+    "tags": ["men", "black", "sports", "tshirts"],
     "budget": 3982
   },
   {
     "name": "Quechua 10L Black Bag",
-    "image": "static\\outfits\\1791.jpg",
-    "tags": [
-      "unisex",
-      "black",
-      "sports",
-      "backpacks"
-    ],
+    "image": "static/outfits/1791.jpg",
+    "tags": ["unisex", "black", "sports", "backpacks"],
     "budget": 3158
   },
   {
     "name": "Lotto Women White T-Shirt",
-    "image": "static\\outfits\\1765.jpg",
-    "tags": [
-      "women",
-      "white",
-      "casual",
-      "tshirts"
-    ],
+    "image": "static/outfits/1765.jpg",
+    "tags": ["women", "white", "casual", "tshirts"],
     "budget": 3140
   }
 ]
