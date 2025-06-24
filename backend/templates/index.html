@@ -1,31 +1,26 @@
-<!-- backend/templates/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Stylist - Get Outfit</title>
+    <title>Fashion Assistant</title>
 </head>
 <body>
-    <h1>Welcome to AI Fashion Stylist 👗</h1>
-    <form action="/recommend" method="POST">
-        <label>Gender:</label>
-        <input type="text" name="gender"><br>
+    <h2>🛍️ Walmart Fashion Assistant</h2>
+    <div id="chatbox"></div>
+    <input type="text" id="message" placeholder="Type your fashion request">
+    <button onclick="send()">Send</button>
 
-        <label>Body Type:</label>
-        <input type="text" name="bodytype"><br>
-
-        <label>Occasion:</label>
-        <input type="text" name="occasion"><br>
-
-        <label>Style:</label>
-        <input type="text" name="style"><br>
-
-        <label>Color Preference:</label>
-        <input type="text" name="colour"><br>
-
-        <label>Budget:</label>
-        <input type="number" name="budget"><br>
-
-        <button type="submit">Get Recommendations</button>
-    </form>
+    <script>
+        async function send() {
+            const msg = document.getElementById("message").value;
+            const res = await fetch("/ask", {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: "message=" + encodeURIComponent(msg)
+            });
+            const data = await res.json();
+            document.getElementById("chatbox").innerHTML += `<p><b>You:</b> ${msg}</p><div>${data.response}</div>`;
+            document.getElementById("message").value = "";
+        }
+    </script>
 </body>
 </html>

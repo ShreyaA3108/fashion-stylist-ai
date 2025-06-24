@@ -1,6 +1,5 @@
-from flask import Flask,render_template, request, jsonify
-from chatbot import generate_response
-from recommender import recommend_from_preferences,recommend_from_groq_blurb
+from flask import Flask, render_template, request, jsonify
+from assistant import extract_features_from_message, find_matching_products
 
 app = Flask(__name__)
 
@@ -8,60 +7,32 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route("/recommend", methods=["POST"])
-def recommend():
-    # Get form input
-    # gender   = request.form.get("gender")
-    # occasion = request.form.get("occasion")
-    # budget   = request.form.get("budget")
-    # style    = request.form.get("style")
-    # color    = request.form.get("colour")
-    # bodytype = request.form.get("bodytype")
+@app.route("/ask", methods=["POST"])
+def ask():
+    user_msg = request.form.get("message")
+    print("🔹 User message:", user_msg)
+    filters = extract_features_from_message(user_msg)
+    print("🧠 Extracted filters:", filters)
+    if not filters:
+        return jsonify({"response": "⚠️ Sorry, I couldn't understand your request."})
 
-    # # Use GPT to generate a friendly explanation
-    # # prompt = f"Suggest an outfit under ₹{budget} for a {bodytype} {gender} going to a {occasion}. Style: {style}, prefers {color} colors."
-    # prompt = f"Suggest a one-line friendly fashion recommendation under ₹{budget} for a {bodytype} {gender} going to a {occasion}. Style: {style}. Prefers {color} colors. Keep it short. Do not list products. Do not include pricing or brand names."
-    # stylist_blurb = generate_response(prompt)
+    results = find_matching_products(filters)
 
-    # # Run rule-based recommender
-    # top_items = recommend_from_preferences(gender, bodytype, occasion, color, budget, style)
+    if not results:
+        return jsonify({"response": "❌ No matching products found."})
 
-    # # Build outfit cards
-    # outfits = []
-    # for item in top_items:
-    #     outfits.append({
-    #         "img": item["image"],
-    #         "title": item["name"]
-    #     })
+    response_html = ""
+    for item in results:
+        response_html += f"""
+        <div style='margin-bottom:20px;'>
+            <b>{item['name']}</b><br>
+            Price: ₹{item['budget']}<br>
+            Tags: {', '.join(item['tags'])}<br>
+            <img src='/{item['image']}' width='160'><br>
+        </div>
+        """
 
-    # return render_template("result.html", blurb=stylist_blurb, outfits=outfits, celeb_img=None)
-    gender   = request.form.get("gender")
-    occasion = request.form.get("occasion")
-    budget   = request.form.get("budget")
-    style    = request.form.get("style")
-    color    = request.form.get("colour")
-    bodytype = request.form.get("bodytype")
-
-    # GPT prompt
-    prompt = f"Suggest a one-line friendly fashion recommendation under ₹{budget} for a {bodytype} {gender} going to a {occasion}. Style: {style}. Prefers {color} colors. Keep it short. Do not list products. Do not include pricing or brand names."
-    stylist_blurb = generate_response(prompt)
-
-    # Match from Groq output
-    # Merge blurb with user inputs
-    combined_text = f"{stylist_blurb}. Gender: {gender}, Bodytype: {bodytype}, Occasion: {occasion}, Style: {style}, Color: {color}"
-
-    top_items = recommend_from_groq_blurb(combined_text)
-
-
-    # Build outfit cards
-    outfits = []
-    for item in top_items:
-        outfits.append({
-            "img": item["image"].replace("static/", ""),  # ensure clean image path
-            "title": item["name"]
-        })
-
-    return render_template("result.html", blurb=stylist_blurb, outfits=outfits, celeb_img=None)
+    return jsonify({"response": response_html})
 
 if __name__ == "__main__":
     app.run(debug=True)
