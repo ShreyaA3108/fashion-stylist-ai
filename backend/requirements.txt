@@ -1,0 +1,9 @@
+flask
+openai
+python-dotenv
+streamlit
+Pillow
+requests
+transformers
+torch
+google-generativeai

@@ -56,7 +56,57 @@ Example:
     else:
         print("❌ No JSON object found.")
         return None
-    
+
+
+
+def get_event_style_advice(user_intent):
+    """
+    Given a user intent (e.g., 'I'm going to a wedding next week in Jaipur'),
+    return a dict with suggested dress code, outfit options, and style tips.
+    """
+    prompt = f"""
+You are a fashion stylist assistant. A user says: "{user_intent}"
+
+1. Suggest an appropriate dress code for the event and location.
+2. Suggest 2-3 specific outfit options (describe the outfit, not brands).
+3. Give 2-3 style tips (e.g., fabric, color, accessories) relevant to the event and location.
+
+Respond in this JSON format:
+{{
+  "dress_code": "...",
+  "outfit_options": [
+    "...",
+    "..."
+  ],
+  "style_tips": [
+    "...",
+    "..."
+  ]
+}}
+"""
+    response = model.generate_content(prompt)
+    raw = response.text.strip()
+    print("🧠 Event Style Advice Raw Response:\n", raw)
+
+    # Remove markdown/code block formatting if present
+    raw = raw.strip("`")
+    raw = re.sub(r"^json", "", raw, flags=re.IGNORECASE).strip()
+
+    # Try to extract JSON object from messy text
+    match = re.search(r"\{.*?\}", raw, re.DOTALL)
+    if match:
+        try:
+            json_str = match.group()
+            data = json.loads(json_str)
+            return data
+        except Exception as e:
+            print("❌ JSON parsing failed (event style advice):", e)
+            return None
+    else:
+        print("❌ No JSON object found (event style advice).")
+        return None
+
+
 def find_matching_products(filters):
     matches = []
 
@@ -92,4 +142,31 @@ def find_matching_products(filters):
     # Return only product dicts, top 5
     return [match[0] for match in matches[:5]]
 
+def classify_intent(user_message):
+    prompt = f"""
+You are a classifier. A user says: "{user_message}"
+
+Classify the intent as either:
+- "product_recommendation"
+- "style_advice"
+
+Only return a JSON like: {{"intent": "..."}}. No explanation.
+"""
+
+    response = model.generate_content(prompt)
+    raw = response.text.strip()
+
+    raw = raw.strip("`")
+    raw = re.sub(r"^json", "", raw, flags=re.IGNORECASE).strip()
+
+    match = re.search(r"\{.*?\}", raw, re.DOTALL)
+    if match:
+        try:
+            json_str = match.group()
+            data = json.loads(json_str)
+            return data.get("intent")
+        except Exception as e:
+            print("❌ Intent JSON parse failed:", e)
+            return None
+    return None
 

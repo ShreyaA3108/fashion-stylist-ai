@@ -10,17 +10,38 @@
     <button onclick="send()">Send</button>
 
     <script>
-        async function send() {
-            const msg = document.getElementById("message").value;
-            const res = await fetch("/ask", {
-                method: "POST",
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: "message=" + encodeURIComponent(msg)
-            });
-            const data = await res.json();
-            document.getElementById("chatbox").innerHTML += `<p><b>You:</b> ${msg}</p><div>${data.response}</div>`;
-            document.getElementById("message").value = "";
-        }
+       async function send() {
+        const msg = document.getElementById("message").value;
+        const res = await fetch("/ask", {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: "message=" + encodeURIComponent(msg)
+        });
+        const data = await res.json();
+
+        let html = `<p><b>You:</b> ${msg}</p>`;
+
+        // If backend returns structured event style advice
+        if (data.dress_code || data.outfit_options || data.style_tips) {
+            html += `<div><b>Suggested Dress Code:</b> ${data.dress_code || ''}</div>`;
+            if (data.outfit_options && data.outfit_options.length) {
+                html += `<div><b>Outfit Options:</b><ul>`;
+                data.outfit_options.forEach(opt => html += `<li>${opt}</li>`);
+                html += `</ul></div>`;
+            }
+            if (data.style_tips && data.style_tips.length) {
+                html += `<div><b>Style Tips:</b><ul>`;
+                data.style_tips.forEach(tip => html += `<li>${tip}</li>`);
+                html += `</ul></div>`;
+            }
+        } else {
+            // Fallback for plain text response
+            html += `<div>${data.response}</div>`;
+         }
+
+        document.getElementById("chatbox").innerHTML += html;
+        document.getElementById("message").value = "";
+    }
     </script>
 </body>
 </html>
