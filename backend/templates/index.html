@@ -1,47 +1,870 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fashion Assistant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart Fashion Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0071dc; /* Walmart blue */
+            --secondary: #ffc220; /* Walmart yellow */
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar Styles */
+        .header {
+            background: linear-gradient(135deg, #0071dc 0%, #004f9a 100%);
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .nav-links i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+            margin-right: 12px;
+            color: var(--primary);
+        }
+        
+        h2 {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .tagline {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        #chatbox {
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.5;
+            position: relative;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        #message {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 24px;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        
+        #message:focus {
+            border-color: var(--primary);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 0 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #005bb5;
+        }
+        
+        button svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Style for structured advice */
+        .advice-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .dress-code {
+            background-color: var(--light);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .outfit-options, .style-tips {
+            margin-top: 8px;
+        }
+        
+        .outfit-options h4, .style-tips h4 {
+            color: var(--primary);
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .outfit-options ul, .style-tips ul {
+            padding-left: 20px;
+        }
+        
+        .outfit-options li, .style-tips li {
+            margin-bottom: 6px;
+        }
+        
+        /* Enhanced Style for product listings */
+        .product-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: white;
+            position: relative;
+        }
+        
+        .product-card h3 {
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        
+        .product-card img {
+            border-radius: 4px;
+            margin-top: 8px;
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--success);
+            margin: 8px 0;
+        }
+        
+        .product-tags {
+            font-size: 13px;
+            color: var(--gray);
+            margin: 4px 0;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .try-on-btn {
+            background-color: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .try-on-btn:hover {
+            background-color: #e6b117;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #005bb5;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 12px 16px;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            width: fit-content;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--gray);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        /* Try-On Items Panel */
+        .try-on-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 15px;
+            width: 300px;
+            z-index: 100;
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .try-on-panel.active {
+            transform: translateY(0);
+        }
+        
+        .try-on-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .try-on-panel-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .close-panel {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .try-on-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .try-on-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .try-on-item:last-child {
+            border-bottom: none;
+        }
+        
+        .try-on-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .try-on-item-info {
+            flex: 1;
+        }
+        
+        .try-on-item-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .try-on-item-price {
+            font-size: 13px;
+            color: var(--success);
+        }
+        
+        .try-on-panel-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .go-to-try-on {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .try-on-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 99;
+        }
+        
+        .badge-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            #chatbox {
+                height: 400px;
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+
+            /* Responsive navbar */
+            .header-container {
+                padding: 0 10px;
+                height: 60px;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+            
+            .nav-links a span {
+                display: none;
+            }
+            
+            .nav-links a i {
+                font-size: 20px;
+                margin-bottom: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px;
+            }
+            
+            .try-on-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            .logo{
+                align-items: end;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>🛍️ Walmart Fashion Assistant</h2>
-    <div id="chatbox"></div>
-    <input type="text" id="message" placeholder="Type your fashion request">
-    <button onclick="send()">Send</button>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../static/logo/WALMART.png" alt="Walmart Logo">
+                
+            </div>
+            
+            <nav class="nav-links">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/virtual-try-on" class="active">
+                    <i class="fas fa-robot"></i>
+                    <span>try-on</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🛍️</div>
+                <div>
+                    <h2>Walmart Fashion Assistant</h2>
+                    <div class="tagline">Your personal style guide for any occasion</div>
+                </div>
+            </div>
+        </header>
+        
+        <div id="chatbox">
+            <div class="message bot-message">
+                Hi there! 👋 I'm your Walmart Fashion Assistant. How can I help you today? 
+                <br><br>You can ask me things like:
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>"What should I wear to a summer wedding?"</li>
+                    <li>"Show me men's t-shirts under ₹5000"</li>
+                    <li>"Affordable business casual looks"</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="message" placeholder="Type your fashion request..." autocomplete="off">
+            <button onclick="send()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Send
+            </button>
+        </div>
+    </div>
+    
+    <!-- Try-On Panel -->
+    <div class="try-on-panel" id="tryOnPanel">
+        <div class="try-on-panel-header">
+            <div class="try-on-panel-title">Your Try-On Items</div>
+            <button class="close-panel" onclick="toggleTryOnPanel()">×</button>
+        </div>
+        <div class="try-on-items" id="tryOnItems">
+            <!-- Items will be added here dynamically -->
+            <div class="empty-message">No items added yet</div>
+        </div>
+        <div class="try-on-panel-footer">
+            <button class="go-to-try-on" onclick="goToTryOn()">Virtual Try-On</button>
+        </div>
+    </div>
+    
+    <div class="try-on-badge" onclick="toggleTryOnPanel()">
+        <i class="fas fa-magic"></i>
+        <div class="badge-count" id="tryOnBadgeCount">0</div>
+    </div>
 
     <script>
-       async function send() {
-        const msg = document.getElementById("message").value;
-        const res = await fetch("/ask", {
-            method: "POST",
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: "message=" + encodeURIComponent(msg)
-        });
-        const data = await res.json();
-
-        let html = `<p><b>You:</b> ${msg}</p>`;
-
-        // If backend returns structured event style advice
-        if (data.dress_code || data.outfit_options || data.style_tips) {
-            html += `<div><b>Suggested Dress Code:</b> ${data.dress_code || ''}</div>`;
+        // Try-On Items Management
+        let tryOnItems = [];
+        
+        function toggleTryOnPanel() {
+            const panel = document.getElementById('tryOnPanel');
+            panel.classList.toggle('active');
+        }
+        
+        function updateTryOnBadge() {
+            const badgeCount = document.getElementById('tryOnBadgeCount');
+            badgeCount.textContent = tryOnItems.length;
+            badgeCount.style.display = tryOnItems.length > 0 ? 'flex' : 'none';
+        }
+        
+        function addToTryOn(product) {
+            // Check if product already exists
+            const exists = tryOnItems.some(item => item.id === product.id);
+            if (!exists) {
+                tryOnItems.push(product);
+                renderTryOnItems();
+                updateTryOnBadge();
+                
+                // Show panel if it's the first item
+                if (tryOnItems.length === 1) {
+                    document.getElementById('tryOnPanel').classList.add('active');
+                }
+            }
+        }
+        
+        function removeTryOnItem(id) {
+            tryOnItems = tryOnItems.filter(item => item.id !== id);
+            renderTryOnItems();
+            updateTryOnBadge();
+        }
+        
+        function renderTryOnItems() {
+            const container = document.getElementById('tryOnItems');
+            
+            if (tryOnItems.length === 0) {
+                container.innerHTML = '<div class="empty-message">No items added yet</div>';
+                return;
+            }
+            
+            container.innerHTML = tryOnItems.map(item => `
+                <div class="try-on-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="try-on-item-info">
+                        <div class="try-on-item-name">${item.name}</div>
+                        <div class="try-on-item-price">${item.price}</div>
+                    </div>
+                    <button onclick="removeTryOnItem('${item.id}')">×</button>
+                </div>
+            `).join('');
+        }
+        
+        function goToTryOn() {
+            // Store items in sessionStorage to access on the try-on page
+            sessionStorage.setItem('tryOnItems', JSON.stringify(tryOnItems));
+            window.location.href = '/virtual-try-on';
+        }
+        
+        // Product card enhancement function
+        function enhanceProductCards(container) {
+            const productCards = container.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                // Skip if already enhanced
+                if (card.querySelector('.product-actions')) return;
+                
+                // Extract product info from the card
+                const title = card.querySelector('h3')?.textContent || 'Product';
+                const price = card.querySelector('.product-price')?.textContent || '₹0';
+                const image = card.querySelector('img')?.src || '';
+                
+                // Generate a unique ID for the product
+                const productId = 'prod-' + Math.random().toString(36).substr(2, 9);
+                
+                // Create product object
+                const product = {
+                    id: productId,
+                    name: title,
+                    price: price,
+                    image: image
+                };
+                
+                // Create actions container
+                const actions = document.createElement('div');
+                actions.className = 'product-actions';
+                actions.innerHTML = `
+                    <button class="try-on-btn" onclick="addToTryOn(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                        <i class="fas fa-magic"></i> Try On
+                    </button>
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                `;
+                
+                // Append actions to the card
+                card.appendChild(actions);
+            });
+        }
+        
+        // Main chat functions
+        async function send() {
+            const msgInput = document.getElementById("message");
+            const msg = msgInput.value.trim();
+            
+            if (!msg) return;
+            
+            // Add user message to chat
+            addMessage(msg, 'user');
+            msgInput.value = "";
+            
+            // Show typing indicator
+            const typingId = showTypingIndicator();
+            
+            try {
+                const res = await fetch("/ask", {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: "message=" + encodeURIComponent(msg)
+                });
+                
+                if (!res.ok) throw new Error('Network response was not ok');
+                
+                const data = await res.json();
+                
+                // Remove typing indicator
+                removeTypingIndicator(typingId);
+                
+                // Handle different response types
+                if (data.dress_code || data.outfit_options || data.style_tips) {
+                    // Structured style advice response
+                    renderStyleAdvice(data);
+                } else if (data.response && data.response.includes('<div style=')) {
+                    // Pre-formatted HTML product response
+                    addMessage(data.response, 'bot', false);
+                    
+                    // Enhance product cards with try-on buttons
+                    setTimeout(() => {
+                        const messages = document.querySelectorAll('.bot-message');
+                        const lastMessage = messages[messages.length - 1];
+                        enhanceProductCards(lastMessage);
+                    }, 100);
+                } else {
+                    // Plain text fallback
+                    addMessage(data.response || "I couldn't understand that request. Could you please rephrase?", 'bot');
+                }
+            } catch (error) {
+                removeTypingIndicator(typingId);
+                addMessage("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
+                console.error('Error:', error);
+            }
+        }
+        
+        function renderStyleAdvice(data) {
+            let html = `<div class="advice-container">`;
+            
+            if (data.dress_code) {
+                html += `<div class="dress-code">${data.dress_code}</div>`;
+            }
+            
             if (data.outfit_options && data.outfit_options.length) {
-                html += `<div><b>Outfit Options:</b><ul>`;
+                html += `<div class="outfit-options">
+                    <h4>✨ Outfit Options</h4>
+                    <ul>`;
                 data.outfit_options.forEach(opt => html += `<li>${opt}</li>`);
                 html += `</ul></div>`;
             }
+            
             if (data.style_tips && data.style_tips.length) {
-                html += `<div><b>Style Tips:</b><ul>`;
+                html += `<div class="style-tips">
+                    <h4>💡 Style Tips</h4>
+                    <ul>`;
                 data.style_tips.forEach(tip => html += `<li>${tip}</li>`);
                 html += `</ul></div>`;
             }
-        } else {
-            // Fallback for plain text response
-            html += `<div>${data.response}</div>`;
-         }
-
-        document.getElementById("chatbox").innerHTML += html;
-        document.getElementById("message").value = "";
-    }
+            
+            html += `</div>`;
+            addMessage(html, 'bot', false);
+        }
+        
+        function addMessage(content, sender, isText = true) {
+            const chatbox = document.getElementById("chatbox");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (isText) {
+                messageDiv.textContent = content;
+            } else {
+                messageDiv.innerHTML = content;
+                
+                // Enhance any product cards that came from backend HTML
+                const productDivs = messageDiv.querySelectorAll('div[style*="margin-bottom:20px"]');
+                productDivs.forEach(div => {
+                    div.className = 'product-card';
+                    div.removeAttribute('style');
+                });
+            }
+            
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            const chatbox = document.getElementById("chatbox");
+            const typingDiv = document.createElement("div");
+            typingDiv.className = "typing-indicator";
+            typingDiv.id = "typing-" + Date.now();
+            
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            
+            chatbox.appendChild(typingDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+            
+            return typingDiv.id;
+        }
+        
+        function removeTypingIndicator(id) {
+            const typingElement = document.getElementById(id);
+            if (typingElement) {
+                typingElement.remove();
+            }
+        }
+        
+        // Allow sending message with Enter key
+        document.getElementById("message").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                send();
+            }
+        });
+        
+        // Initialize try-on badge
+        updateTryOnBadge();
     </script>
 </body>
 </html>

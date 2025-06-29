@@ -6,7 +6,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    return render_template("home.html")
+
+@app.route("/fashionBot")
+def fashion_bot():
     return render_template("index.html")
+
+@app.route("/virtual-try-on")
+def virtual_try_on():
+    return render_template("tryon.html")
 
 @app.route("/ask", methods=["POST"])
 def ask():

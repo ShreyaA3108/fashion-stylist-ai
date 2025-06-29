@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On | Walmart Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --walmart-blue: #0071dc;
+            --walmart-yellow: #ffc220;
+            --walmart-dark: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e6e6e6;
+            --dark-gray: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--walmart-blue);
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .nav-links i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--walmart-dark);
+        }
+
+        /* Try-On Section */
+        .try-on-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .try-on-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--medium-gray);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: var(--walmart-blue);
+            background-color: rgba(0, 113, 220, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: var(--walmart-blue);
+            margin-bottom: 15px;
+        }
+
+        .upload-area p {
+            color: var(--dark-gray);
+        }
+
+        .preview-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .result-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .result-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+        }
+
+        .try-on-btn {
+            background-color: var(--walmart-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .try-on-btn:hover {
+            background-color: #005bb5;
+            transform: translateY(-2px);
+        }
+
+        .try-on-btn:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-top: 40px;
+        }
+
+        .gallery-title {
+            margin-bottom: 20px;
+            color: var(--walmart-dark);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            flex: 1;
+        }
+
+        .category-tab {
+            padding: 8px 16px;
+            background-color: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .category-tab.active {
+            background-color: var(--walmart-blue);
+            color: white;
+            border-color: var(--walmart-blue);
+        }
+
+        /* Try-On Items Button */
+        .show-tryon-items-btn {
+            background-color: var(--walmart-yellow);
+            color: var(--walmart-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .show-tryon-items-btn:hover {
+            background-color: #e6b117;
+            transform: translateY(-2px);
+        }
+
+        .show-tryon-items-btn i {
+            font-size: 16px;
+        }
+
+        .tryon-badge {
+            background-color: var(--walmart-blue);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .clothing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .clothing-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .clothing-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .clothing-item.selected {
+            box-shadow: 0 0 0 3px var(--walmart-blue);
+        }
+
+        .clothing-img {
+            height: 200px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clothing-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .clothing-info {
+            padding: 15px;
+        }
+
+        .clothing-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--walmart-dark);
+        }
+
+        .clothing-info p {
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        /* Empty state for try-on items */
+        .empty-tryon-items {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--dark-gray);
+        }
+
+        .empty-tryon-items i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .empty-tryon-items h3 {
+            margin-bottom: 10px;
+        }
+
+        .empty-tryon-items a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .empty-tryon-items a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--walmart-dark);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .category-tabs {
+                justify-content: center;
+            }
+            
+            .show-tryon-items-btn {
+                align-self: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../static/logo/WALMART.png" alt="Walmart Logo">
+            </div>
+            
+            <nav class="nav-links">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/fashionBot">
+                    <i class="fas fa-robot"></i>
+                    <span>Fashion Assistant</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <h1 class="page-title">Virtual Try-On</h1>
+        
+        <div class="try-on-container">
+            <div class="upload-section">
+                <h2>Upload Your Photo</h2>
+                <p>Upload a clear photo of yourself to see how these clothes will look on you</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Click to Upload</h3>
+                    <p>or drag and drop your photo here</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="preview-container" id="previewContainer">
+                    <p id="previewText">Your photo will appear here</p>
+                    <img id="previewImage" style="display: none;">
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="result-container">
+                    <h2>Virtual Try-On Result</h2>
+                    <p>Select a clothing item and see how it looks on you</p>
+                    
+                    <div class="result-placeholder" id="resultPlaceholder">
+                        <p>Your virtual try-on will appear here</p>
+                    </div>
+                    <div id="resultImage" style="display: none;"></div>
+                    
+                    <button class="try-on-btn" id="tryOnBtn" disabled>Try It On</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-section">
+            <h2 class="gallery-title">Shop Clothing</h2>
+            
+            <div class="gallery-controls">
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="shop">All Items</div>
+                    <div class="category-tab" data-category="shirts">T-Shirts</div>
+                    <div class="category-tab" data-category="formal">Shirts</div>
+                    <div class="category-tab" data-category="jeans">Jeans</div>
+                    <div class="category-tab" data-category="dresses">Dresses</div>
+                    <div class="category-tab" data-category="jackets">Jackets</div>
+                    <div class="category-tab" data-category="activewear">Activewear</div>
+                </div>
+                
+                <button class="show-tryon-items-btn" id="showTryonItemsBtn">
+                    <i class="fas fa-magic"></i>
+                    My Try-On Items
+                    <span class="tryon-badge" id="tryonBadge">0</span>
+                </button>
+            </div>
+            
+            <div class="clothing-grid" id="clothingGrid">
+                <!-- Sample clothing items - in a real app these would come from your database -->
+                <div class="clothing-item" data-id="1" data-category="shirts">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/abc123.jpg" alt="Men's Blue T-Shirt">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Men's Classic T-Shirt</h3>
+                        <p>₹499</p>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-id="2" data-category="dresses">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/def456.jpg" alt="Women's Floral Dress">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Women's Floral Dress</h3>
+                        <p>₹899</p>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-id="3" data-category="jackets">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/ghi789.jpg" alt="Men's Denim Jacket">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Men's Denim Jacket</h3>
+                        <p>₹1299</p>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-id="4" data-category="activewear">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/jkl012.jpg" alt="Women's Yoga Pants">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Women's Yoga Pants</h3>
+                        <p>₹599</p>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-id="5" data-category="formal">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/mno345.jpg" alt="Men's Formal Shirt">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Men's Formal Shirt</h3>
+                        <p>₹799</p>
+                    </div>
+                </div>
+                
+                <div class="clothing-item" data-id="6" data-category="shirts">
+                    <div class="clothing-img">
+                        <img src="https://i.imgur.com/pqr678.jpg" alt="Women's Summer Top">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>Women's Summer Top</h3>
+                        <p>₹399</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Order Tracking</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>About Walmart</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Newsroom</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Gift Cards</a></li>
+                    <li><a href="#">Walmart+</a></li>
+                    <li><a href="#">Free Grocery Pickup</a></li>
+                    <li><a href="#">Same Day Delivery</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Walmart. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // File Upload Handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('previewContainer');
+        const previewImage = document.getElementById('previewImage');
+        const previewText = document.getElementById('previewText');
+        const tryOnBtn = document.getElementById('tryOnBtn');
+        const resultPlaceholder = document.getElementById('resultPlaceholder');
+        const clothingGrid = document.getElementById('clothingGrid');
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const showTryonItemsBtn = document.getElementById('showTryonItemsBtn');
+        const tryonBadge = document.getElementById('tryonBadge');
+        
+        let selectedClothingId = null;
+        let userImage = null;
+        let tryOnItems = [];
+        let currentCategory = 'shop';
+
+        // Initialize try-on items from sessionStorage
+        function initializeTryOnItems() {
+            const storedItems = sessionStorage.getItem('tryOnItems');
+            if (storedItems) {
+                tryOnItems = JSON.parse(storedItems);
+                updateTryOnBadge();
+            }
+        }
+
+        // Update the badge count
+        function updateTryOnBadge() {
+            tryonBadge.textContent = tryOnItems.length;
+            if (tryOnItems.length === 0) {
+                tryonBadge.style.display = 'none';
+            } else {
+                tryonBadge.style.display = 'flex';
+            }
+        }
+
+        // Show try-on items in the grid
+        function showTryOnItems() {
+            if (tryOnItems.length === 0) {
+                clothingGrid.innerHTML = `
+                    <div class="empty-tryon-items" style="grid-column: 1 / -1;">
+                        <i class="fas fa-magic"></i>
+                        <h3>No Try-On Items Yet</h3>
+                        <p>Items you add for try-on from the Fashion Assistant will appear here.</p>
+                        <p><a href="/fashionBot">Go to Fashion Assistant</a> to find items and add them to your try-on list.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            clothingGrid.innerHTML = tryOnItems.map(item => `
+                <div class="clothing-item" data-id="${item.id}">
+                    <div class="clothing-img">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\"fas fa-image\\" style=\\"font-size: 48px; color: #ccc;\\"></i>';">
+                    </div>
+                    <div class="clothing-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers to the new items
+            addClothingItemHandlers();
+        }
+
+        // Show regular shop items by category
+        function showShopItems(category = 'shop') {
+            const allItems = document.querySelectorAll('.clothing-item[data-category]');
+            
+            clothingGrid.innerHTML = '';
+            
+            allItems.forEach(item => {
+                if (category === 'shop' || item.getAttribute('data-category') === category) {
+                    clothingGrid.appendChild(item.cloneNode(true));
+                }
+            });
+
+            // Add click handlers to the cloned items
+            addClothingItemHandlers();
+        }
+
+        // Add click handlers to clothing items
+        function addClothingItemHandlers() {
+            const items = clothingGrid.querySelectorAll('.clothing-item');
+            
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove selection from all items
+                    items.forEach(i => i.classList.remove('selected'));
+                    
+                    // Select current item
+                    item.classList.add('selected');
+                    selectedClothingId = item.getAttribute('data-id');
+                    
+                    // Enable try-on button if image is uploaded
+                    if (userImage) {
+                        tryOnBtn.disabled = false;
+                    }
+                });
+            });
+        }
+
+        // Handle file upload
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = (event) => {
+                    userImage = event.target.result;
+                    previewImage.src = userImage;
+                    previewImage.style.display = 'block';
+                    previewText.style.display = 'none';
+                    
+                    // Enable try-on button if clothing is selected
+                    if (selectedClothingId) {
+                        tryOnBtn.disabled = false;
+                    }
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Allow drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--walmart-blue)';
+            uploadArea.style.backgroundColor = 'rgba(0, 113, 220, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--medium-gray)';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--medium-gray)';
+            uploadArea.style.backgroundColor = 'transparent';
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                fileInput.files = e.dataTransfer.files;
+                const event = new Event('change');
+                fileInput.dispatchEvent(event);
+            }
+        });
+
+        // Category tab handling
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Get category and show items
+                const category = tab.getAttribute('data-category');
+                currentCategory = category;
+                
+                if (category === 'tryon') {
+                    showTryOnItems();
+                } else {
+                    showShopItems(category);
+                }
+            });
+        });
+
+        // Try-On Items button handler
+        showTryonItemsBtn.addEventListener('click', () => {
+            // Remove active class from all tabs
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            
+            // Show try-on items
+            currentCategory = 'tryon';
+            showTryOnItems();
+        });
+
+        // Try On button click
+        tryOnBtn.addEventListener('click', () => {
+            if (userImage && selectedClothingId) {
+                // In a real app, this would call your virtual try-on API
+                // For demo, we'll just simulate it
+                resultPlaceholder.innerHTML = `
+                    <p>Generating your virtual try-on...</p>
+                `;
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    resultPlaceholder.style.display = 'none';
+                    const resultImage = document.getElementById('resultImage');
+                    resultImage.innerHTML = `
+                        <img src="${userImage}" style="max-width: 100%; border: 2px solid var(--walmart-blue); border-radius: 8px;">
+                        <p style="margin-top: 10px;">Virtual try-on result for item #${selectedClothingId}</p>
+                    `;
+                    resultImage.style.display = 'block';
+                }, 1500);
+            }
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTryOnItems();
+            showShopItems('shop');
+        });
+    </script>
+</body>
+</html>
